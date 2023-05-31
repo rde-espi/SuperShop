@@ -1,11 +1,16 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Xunit.Sdk;
 
 namespace SuperShop.Web.Data.Entities
 {
     public class Product
     {
         public int Id { get; set; }
+
+
+        [Required]
+        [MaxLength(50)]
         public string Name { get; set; }
 
 
@@ -18,10 +23,10 @@ namespace SuperShop.Web.Data.Entities
 
 
         [Display(Name ="Last Purchase")]
-        public DateTime LastPurchase { get; set; }
+        public DateTime? LastPurchase { get; set; }
 
         [Display(Name = "Last Sale")]
-        public DateTime LastSale { get; set; }
+        public DateTime? LastSale { get; set; }
 
 
         [Display(Name ="Is Available")]
