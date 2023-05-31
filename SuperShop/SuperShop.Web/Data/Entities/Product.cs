@@ -10,7 +10,7 @@ namespace SuperShop.Web.Data.Entities
 
 
         [Required]
-        [MaxLength(50)]
+        [MaxLength(50, ErrorMessage ="")]
         public string Name { get; set; }
 
 
