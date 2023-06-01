@@ -4,13 +4,13 @@ using Xunit.Sdk;
 
 namespace SuperShop.Web.Data.Entities
 {
-    public class Product
+    public class Product:IEntity
     {
         public int Id { get; set; }
 
 
         [Required]
-        [MaxLength(50, ErrorMessage ="")]
+        [MaxLength(50, ErrorMessage ="Caracteres demais")]
         public string Name { get; set; }
 
 
