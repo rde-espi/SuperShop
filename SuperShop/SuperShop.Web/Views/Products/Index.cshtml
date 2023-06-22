@@ -4,10 +4,10 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Lista de Pordutos</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -43,9 +43,9 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                @if(!string.IsNullOrEmpty(item.ImageUrl))
+                @if(!string.IsNullOrEmpty(item.ImageFullPath))
                 {
-                    <img src="@Url.Content(item.ImageUrl)"alt="Image" style="width:100px; height:150px; max-width:100%;height:auto">
+                    <img src="@Url.Content(item.ImageFullPath)"alt="Image" style="width:100px; height:150px; max-width:100%;height:auto;"/>
                 }
             </td>
             <td>

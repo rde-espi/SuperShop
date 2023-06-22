@@ -19,7 +19,7 @@ namespace SuperShop.Web.Data.Entities
 
 
         [Display(Name="Image")]
-        public string ImageUrl { get; set; }
+        public Guid ImageId { get; set; }
 
 
         [Display(Name ="Last Purchase")]
@@ -39,16 +39,8 @@ namespace SuperShop.Web.Data.Entities
 
         public User User { get; set; }
 
-        public string ImageFullPath 
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(ImageUrl))
-                {
-                    return null;
-                }
-                return $"https://localhost:44339{ImageUrl.Substring(1)}";
-            } 
-        }
+        public string ImageFullPath => ImageId == Guid.Empty
+            ? $"https://supershopwebtpsirs.azurewebsites.net/images/noimage.png"
+            : $"https://supershopwebtpsirs.blob.core.windows.net/Products/{ImageId}";
     }
 }

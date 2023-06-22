@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SuperShop.Web.Data;
-using SuperShop.Web.Data.Entities;
 using SuperShop.Web.Helpers;
 using SuperShop.Web.Models;
+
 
 namespace SuperShop.Web.Controllers
 {
@@ -18,25 +15,25 @@ namespace SuperShop.Web.Controllers
         private readonly IProductRepository _productRepository;
         private readonly IUserHelper _userHelper;
 
-        public readonly IImageHelper _imageHelper;
+        public readonly IBlobHelper _blobHelper;
         public readonly IConverterHelper _converterHelper;
 
-        public ProductsController(IProductRepository productRepository, IUserHelper userHelper, IImageHelper imageHelper, IConverterHelper converterHelper)
+        public ProductsController(IProductRepository productRepository, IUserHelper userHelper, IBlobHelper blobHelper, IConverterHelper converterHelper)
         {
             _productRepository = productRepository;
             _userHelper = userHelper;
-            _imageHelper = imageHelper;
+            _blobHelper = blobHelper;
             _converterHelper = converterHelper;
         }
 
         // GET: Products
         public IActionResult Index()
         {
-            return View(_productRepository.GetAll().OrderBy(p=>p.Name));
+            return View(_productRepository.GetAll().OrderBy(p => p.Name));
         }
 
         // GET: Products/Details/5
-        public async Task<IActionResult>Details(int? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -63,20 +60,20 @@ namespace SuperShop.Web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(ProductViewModel model )
+        public async Task<IActionResult> Create(ProductViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var path = string.Empty;
-                if(model.ImageFile != null && model.ImageFile.Length > 0)
+                Guid imageId = Guid.Empty;
+                if (model.ImageFile != null && model.ImageFile.Length > 0)
                 {
-                    path = await _imageHelper.UploadImageAsync(model.ImageFile,"products");
+                    imageId = await _blobHelper.UploadBlobAsync(model.ImageFile, "products");
                 }
 
-                var product = _converterHelper.ToProduct(model,path,true);
+                var product = _converterHelper.ToProduct(model, imageId, true);
                 //TODO: Modificar para o user logado
                 product.User = await _userHelper.GetUserByEmailAsync("reinaldo_7531@hotmail.com");
-               await _productRepository.CreateAsync(product);
+                await _productRepository.CreateAsync(product);
                 return RedirectToAction(nameof(Index));
             }
             return View(model);
@@ -122,19 +119,19 @@ namespace SuperShop.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(ProductViewModel model)
         {
-          
+
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    var path = model.ImageUrl;
-                    if(model.ImageFile != null && model.ImageFile.Length > 0)
+                    Guid imageId = model.ImageId;
+                    if (model.ImageFile != null && model.ImageFile.Length > 0)
                     {
-                        path = await _imageHelper.UploadImageAsync(model.ImageFile, "products");
+                        imageId = await _blobHelper.UploadBlobAsync(model.ImageFile, "products");
                     }
 
-                    var product = _converterHelper.ToProduct(model, path, false);
+                    var product = _converterHelper.ToProduct(model, imageId, false);
 
                     //TODO: Modificar para o user logado
                     product.User = await _userHelper.GetUserByEmailAsync("reinaldo_7531@hotmail.com");
@@ -143,7 +140,7 @@ namespace SuperShop.Web.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (! await _productRepository.ExistAsync(model.Id))
+                    if (!await _productRepository.ExistAsync(model.Id))
                     {
                         return NotFound();
                     }
