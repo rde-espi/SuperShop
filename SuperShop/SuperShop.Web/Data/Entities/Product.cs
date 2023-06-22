@@ -40,7 +40,8 @@ namespace SuperShop.Web.Data.Entities
         public User User { get; set; }
 
         public string ImageFullPath => ImageId == Guid.Empty
-            ? $"https://supershopwebtpsirs.azurewebsites.net/images/noimage.png"
-            : $"https://supershopwebtpsirs.blob.core.windows.net/Products/{ImageId}";
+            ?$"/images/noimage.png"
+            :$"https://supershoptpsirs.blob.core.windows.net/products/{ImageId}";
+            
     }
 }

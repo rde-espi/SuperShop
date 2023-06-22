@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SuperShop.Web.Migrations
 {
-    public partial class ImageId : Migration
+    public partial class imageId : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

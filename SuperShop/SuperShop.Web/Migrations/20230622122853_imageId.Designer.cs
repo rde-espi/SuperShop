@@ -10,8 +10,8 @@ using SuperShop.Web.Data;
 namespace SuperShop.Web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230622024539_ImageId")]
-    partial class ImageId
+    [Migration("20230622122853_imageId")]
+    partial class imageId
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
