@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SuperShop.Web.Data;
@@ -10,6 +11,7 @@ using SuperShop.Web.Models;
 
 namespace SuperShop.Web.Controllers
 {
+    //[Authorize]
     public class ProductsController : Controller
     {
         private readonly IProductRepository _productRepository;
@@ -50,6 +52,7 @@ namespace SuperShop.Web.Controllers
         }
 
         // GET: Products/Create
+        [Authorize]
         public IActionResult Create()
         {
             return View();
@@ -96,6 +99,7 @@ namespace SuperShop.Web.Controllers
         //}
 
         // GET: Products/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
