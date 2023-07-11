@@ -1,0 +1,73 @@
+﻿@model IEnumerable<SuperShop.Web.Data.Entities.Order>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Orders</h1>
+
+<p>
+    <a asp-action="Create" class=" btn btn-primary">Create New</a>
+</p>
+<table class="table">
+    <thead>
+       <tr>
+           @if(this.User.IsInRole("Admin"))
+           {
+               <th>
+                   @Html.DisplayNameFor(model=> model.User.FullName)
+               </th>
+           }
+            <th>
+                @Html.DisplayNameFor(model=> model.OrderDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model=> model.DeliveryDate)
+            </th>
+            <th>
+                #Lines
+            </th>
+            <th>
+                @Html.DisplayNameFor(model=> model.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model=> model.Value)
+            </th>
+            <th></th>
+
+       </tr>
+       </thead>
+       <tbody>
+           @foreach(var item in Model)
+           {
+               <tr>
+                   @if(this.User.IsInRole("Admin"))
+                   {
+                    <th>
+                        @Html.DisplayNameFor(model=> model.User.FullName)
+                    </th>
+                   }
+                <td>
+                    @Html.DisplayNameFor(model=> model.OrderDate)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model=> model.DeliveryDate)
+                </td>
+                <td>
+                    #Lines
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model=> model.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model=> model.Value)
+                </td>
+                <td>
+                    <a asp-action="Deliver" asp-route-id="@item.Id" class="btn btn-info" id="btnDeliver">Deliver</a>
+                    <a asp-action="Deliver" asp-route-id="@item.Id" class="btn btn-danger" id="btnDelete">Delete</a>
+                </td>
+               </tr>
+           }
+
+    </tbody>
+</table>
