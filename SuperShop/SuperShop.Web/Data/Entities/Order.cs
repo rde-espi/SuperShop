@@ -26,11 +26,19 @@ namespace SuperShop.Web.Data.Entities
 
         public IEnumerable<OrderDetail> Items { get; set; }
 
+        [DisplayFormat(DataFormatString ="{0:N0}")]
+        public int Lines => Items == null ? 0 : Items.Count();
+
         [DisplayFormat(DataFormatString = "{0:N2}")]
         public double Quantity => Items == null ? 0 : Items.Sum(i => i.Quantity);
 
 
         [DisplayFormat(DataFormatString = "{0:C2}")]
         public decimal Value => Items == null ? 0 : Items.Sum(i => i.Value);
+
+
+        [Display(Name = "Order Date")]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy HH:mm}", ApplyFormatInEditMode = false)]
+        public DateTime? OrderDateLocal => this.OrderDate == null ? null : this.OrderDate.ToLocalTime();
     }
 }
