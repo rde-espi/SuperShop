@@ -15,6 +15,6 @@ namespace SuperShop.Web.Models
         [Range(0.0001, double.MaxValue, ErrorMessage = "You must select a quantity.")]
         public double Quantity { get; set; }
 
-        public IEnumerable<SelectListItem> Products { get; set; }
+        public IEnumerable<SelectListItem>Products{ get; set; }
     }
 }

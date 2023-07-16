@@ -6,23 +6,22 @@
 <h2>Create</h2>
 <p>
 <a asp-action="AddProduct" class="btn btn-success">Add Product</a>
-
 <a asp-action="ConfirmOrder" class="btn btn-primary">Confirm Order</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model=> model.Product.Name)
+                @Html.DisplayNameFor(model => model.Product.Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model=> model.Price)
+                @Html.DisplayNameFor(model => model.Price)
             </th>
             <th>
-                @Html.DisplayNameFor(model=> model.Quantity)
+                @Html.DisplayNameFor(model => model.Quantity)
             </th>
             <th>
-                @Html.DisplayNameFor(model=> model.Value)
+                @Html.DisplayNameFor(model => model.Value)
             </th>
             <th></th>
         </tr>
@@ -32,22 +31,23 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayNameFor(modelItem=> item.Product.Name)
+                    @Html.DisplayFor(ModelItem => item.Product.Name)
                 </td>
                 <td>
-                    @Html.DisplayNameFor(modelItem=> item.Price)
+                    @Html.DisplayFor(ModelItem => item.Price)
                 </td>
                 <td>
-                    @Html.DisplayNameFor(modelItem=> item.Quantity)
+                    @Html.DisplayFor(ModelItem => item.Quantity)
                 </td>
                 <td>
-                    @Html.DisplayNameFor(modelItem=> item.Value)
+                    @Html.DisplayFor(ModelItem => item.Value)
                 </td>
                 <td>
                     <a asp-action="Increase" asp-route-id="@item.Id" class="btn btn-warning"><i class="fa fa-plus"></i></a>
                     <a asp-action="Decrease" asp-route-id="@item.Id" class="btn btn-info"><i class="fa fa-minus"></i></a>
                     <a asp-action="DeleteItem" asp-route-id="@item.Id" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a>
-
                 </td>
             </tr>
         }
+    </tbody>
+</table>
