@@ -6,7 +6,7 @@
 <h2>Create</h2>
 <p>
 <a asp-action="AddProduct" class="btn btn-success">Add Product</a>
-<a asp-action="ConfirmOrder" class="btn btn-primary">Confirm Order</a>
+<a asp-action="ConfirmOrder" class="btn btn-primary" id="btnConfirm">Confirm Order</a>
 </p>
 <table class="table">
     <thead>
@@ -42,12 +42,92 @@
                 <td>
                     @Html.DisplayFor(ModelItem => item.Value)
                 </td>
-                <td>
+                <td id="@item.Id">
                     <a asp-action="Increase" asp-route-id="@item.Id" class="btn btn-warning"><i class="fa fa-plus"></i></a>
                     <a asp-action="Decrease" asp-route-id="@item.Id" class="btn btn-info"><i class="fa fa-minus"></i></a>
-                    <a asp-action="DeleteItem" asp-route-id="@item.Id" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a>
+                    <a asp-action="DeleteItem" asp-route-id="@item.Id" class="btn btn-danger" id="btnDeleteItem"><i class="fa fa-trash"></i> Delete</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+
+<div id="confirmDialog" class="modal fade">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Confirm Order</h4>
+                <button type="button" class="close" data-dismiss="modal"><i class="fa fa-window-close"></i></button>
+            </div>
+            <div class="modal-body">
+                <p>Do Want to Confirm the order?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="btnYesConfirm">Yes</button>
+                <button type="button" class="btn btn-success" id="btnNoConfirm">No</button>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<div id="deleteDialog" class="modal fade">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete</h4>
+                <button type="button" class="close" data-dismiss="modal"><i class="fa fa-window-close"></i></button>
+            </div>
+            <div class="modal-body">
+                <p>Do want to delete this product from order?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="btnYesDelete">Yes</button>
+                <button type="button" class="btn btn-success" id="btnNoDelete">No</button>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function(){
+
+            var id = 0;
+
+            $("#btnConfirm").click(function(){
+                $("#confirmDialog").modal("show");
+                return false;
+            });
+
+            $("#btnNoConfirm").click(function () {
+                $("#confirmDialog").modal("hide");
+                return false;
+            });
+
+            $("#btnYesConfirm").click(function () {
+                window.location.href = "/Orders/ConfirmOrder";
+            });
+
+            $("a[id*=btnDeleteItem]").click(function(){
+                id=$(this).parent()[0].id;
+                $("#deleteDialog").modal("show");
+                return false;
+            });
+
+            $("#btnNoDelete").click(function () {
+                $("#deleteDialog").modal("hide");
+                return false;
+            });
+
+            $("#btnYesDelete").click(function () {
+                window.location.href = "/Orders/DeleteItem/"+ id;
+            });
+
+        });
+        </script>
+}
