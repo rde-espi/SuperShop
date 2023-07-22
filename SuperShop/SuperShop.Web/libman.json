@@ -6,5 +6,11 @@
       "library": "font-awesome@5.15.3",
       "destination": "wwwroot/lib/font-awesome/"
     }
-  ]
+  ,
+{
+  "provider": "cdnjs",
+  "library": "bootstrap-datepicker@1.10.0",
+  "destination": "wwwroot/lib/bootstrap-datepicker/"
+}
+]
 }
