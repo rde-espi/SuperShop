@@ -16,8 +16,8 @@ namespace SuperShop.Web.Data
         Task AddCityAsync(CityViewModel model);
         Task<int>UpdateCityAsync(City city);
         Task<int> DeleteCityAsync(City city);
-        //IEnumerable<SelectListItem> GetComboCountries();
-        //IEnumerable<SelectListItem> GetComboCities();
-        //Task<Country>GetCountryAsync(City city);
+        IEnumerable<SelectListItem> GetComboCountries();
+        IEnumerable<SelectListItem> GetComboCities(int countryId);
+        Task<Country> GetCountryAsync(City city);
     }
 }
