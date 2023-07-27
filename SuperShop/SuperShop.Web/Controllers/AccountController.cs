@@ -13,6 +13,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Routing;
 
 namespace SuperShop.Web.Controllers
 {
@@ -20,11 +21,13 @@ namespace SuperShop.Web.Controllers
     {
         private readonly IUserHelper _userHelper;
         private readonly IConfiguration _configuration;
+        private readonly IMailHelper _mailHelper;
         private readonly ICountryRepository _countryRepository;
 
-        public AccountController(IUserHelper userHelper,ICountryRepository countryRepository, IConfiguration configuration)
+        public AccountController(IUserHelper userHelper,ICountryRepository countryRepository, IConfiguration configuration, IMailHelper mailHelper)
         {
             _configuration = configuration;
+            _mailHelper = mailHelper;
             _userHelper = userHelper;
             _countryRepository = countryRepository;
         }
@@ -98,16 +101,22 @@ namespace SuperShop.Web.Controllers
                         ModelState.AddModelError(string.Empty, "The user could not be created");
                         return View(model);
                     }
-                    var loginViewModel = new LoginViewModel
+
+                    string myToken= await _userHelper.GenerateEmailConfirmationTokenAsync(user);
+                    string tokenLink = Url.Action("ConfirmEmail", "Account", new
                     {
-                        Password = model.Password,
-                        RememberMe = false,
-                        UserName = model.Username
-                    };
-                    var result2 = await _userHelper.LoginAsync(loginViewModel);
-                    if (result2.Succeeded)
+                        userid = user.Id,
+                        token = myToken,
+
+                    }, protocol: HttpContext.Request.Scheme);
+                    Response response= _mailHelper.SendEmail(model.Username, "Email confirmation", $"<h1>Email Confirmation</h1>" +
+                        $"To allow the user, " +
+                        $"plase click in this link:</br></br><a href = \"{tokenLink}\">Confirm Email</a>");
+
+                    if (response.IsSucess)
                     {
-                        return RedirectToAction("Index", "Home");
+                        ViewBag.Message = "The instructions to allow you user has been send to email";
+                        return View(model);
                     }
                     ModelState.AddModelError(string.Empty, "The user could not be logged");
  
@@ -117,6 +126,9 @@ namespace SuperShop.Web.Controllers
             }
             return View(model);
         }
+
+
+
         public async Task<IActionResult> ChangeUser()
         {
             var user = await _userHelper.GetUserByEmailAsync(this.User.Identity.Name);
@@ -245,6 +257,25 @@ namespace SuperShop.Web.Controllers
             }
 
             return BadRequest();
+        }
+
+        public async Task<IActionResult>ConfirmEmail(string userId,string token)
+        {
+            if(string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(token))
+            {
+                return NotFound();
+            }
+            var user = await _userHelper.GetUserByIdAsync(userId);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            var result = await _userHelper.ConfirmEmailAsync(user, token);
+            if (!result.Succeeded)
+            {
+                return NotFound();
+            }
+            return View();
         }
 
         public IActionResult NotAuthorized()

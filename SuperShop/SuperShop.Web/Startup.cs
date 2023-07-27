@@ -32,6 +32,8 @@ namespace SuperShop.Web
         {
             services.AddIdentity<User, IdentityRole>(cfg =>
             {
+                cfg.Tokens.AuthenticatorTokenProvider = TokenOptions.DefaultAuthenticatorProvider;
+                cfg.SignIn.RequireConfirmedEmail = true;
                 cfg.User.RequireUniqueEmail = true;
                 cfg.Password.RequireDigit = false;
                 cfg.Password.RequireLowercase = false;
@@ -41,7 +43,9 @@ namespace SuperShop.Web
                 cfg.Password.RequiredLength = 6;
 
 
-            }).AddEntityFrameworkStores<DataContext>();
+            })
+                .AddDefaultTokenProviders()
+                .AddEntityFrameworkStores<DataContext>();
             services.AddAuthentication()
                 .AddCookie()
                 .AddJwtBearer(cfg => {
@@ -63,6 +67,8 @@ namespace SuperShop.Web
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<ICountryRepository, CountryRepository>();
+            services.AddScoped<IMailHelper, MailHelper>();
+
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = "/Account/NotAuthorized";
