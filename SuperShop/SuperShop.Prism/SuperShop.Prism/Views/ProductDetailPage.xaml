@@ -2,9 +2,11 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="http://prismlibrary.com"
+             xmlns:i18n="clr-namespace:SuperShop.Prism.Helpers"
              prism:ViewModelLocator.AutowireViewModel="True"
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-             Title="{Binding Title}"
+             BackgroundColor="{StaticResource ColorBackground}"
+    Title="{Binding Title}"
              x:Class="SuperShop.Prism.Views.ProductDetailPage">
     <ScrollView>
         <StackLayout Padding="10">
@@ -32,7 +34,7 @@
                     Grid.Row="0"
                     Grid.Column="0"
                     FontAttributes="Bold"
-                    Text="Name" />
+                    Text="{i18n:Translate Name}" />
                 <Label
                     Grid.Row="0"
                     Grid.Column="1"
@@ -41,7 +43,7 @@
                     Grid.Row="1"
                     Grid.Column="0"
                     FontAttributes="Bold"
-                    Text="Price" />
+                    Text="{i18n:Translate Price}" />
                 <Label
                     Grid.Row="1"
                     Grid.Column="1"
@@ -50,7 +52,7 @@
                     Grid.Row="2"
                     Grid.Column="0"
                     FontAttributes="Bold"
-                    Text="LastPurchase" />
+                    Text="{i18n:Translate LastPurchase}" />
                 <Label
                     Grid.Row="2"
                     Grid.Column="1"
@@ -59,7 +61,7 @@
                     Grid.Row="3"
                     Grid.Column="0"
                     FontAttributes="Bold"
-                    Text="LastSale" />
+                    Text="{i18n:Translate LastSale}" />
                 <Label
                     Grid.Row="3"
                     Grid.Column="1"
@@ -68,7 +70,7 @@
                     Grid.Row="4"
                     Grid.Column="0"
                     FontAttributes="Bold"
-                    Text="IsAvailable"
+                    Text="{i18n:Translate IsAvailable}"
                     VerticalOptions="Center" />
                 <CheckBox
                     Grid.Row="4"
@@ -80,7 +82,7 @@
                     Grid.Row="5"
                     Grid.Column="0"
                     FontAttributes="Bold"
-                    Text="Stock" />
+                    Text="{i18n:Translate Stock}" />
                 <Label
                     Grid.Row="5"
                     Grid.Column="1"
@@ -90,7 +92,7 @@
                 BackgroundColor="Navy"
                 Command="{Binding AddToCartBinding}"
                 CornerRadius="10"
-                Text="AddToCart"
+                Text="{i18n:Translate AddToCart}"
                 TextColor="White"
                 VerticalOptions="EndAndExpand" />
         </StackLayout>

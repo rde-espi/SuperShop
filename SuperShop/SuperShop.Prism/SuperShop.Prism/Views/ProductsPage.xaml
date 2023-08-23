@@ -7,6 +7,7 @@
     xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:i18n="clr-namespace:SuperShop.Prism.Helpers"
     xmlns:prism="http://prismlibrary.com"
+    BackgroundColor="{StaticResource ColorBackground}"
     Title="{Binding Title}"
     prism:ViewModelLocator.AutowireViewModel="True">
 
@@ -72,10 +73,10 @@
             AbsoluteLayout.LayoutBounds=".5,.5,.5,.5"
             AbsoluteLayout.LayoutFlags="All"
             AnimationType="Gear"
-            BackgroundColor="Silver"
+            BackgroundColor="{StaticResource ColorAccent}"
             HorizontalOptions="Center"
             IsBusy="{Binding IsRunning}"
-            TextColor="White"
+            TextColor="{StaticResource ColorFontInverse}"
             VerticalOptions="Center"
             ViewBoxHeight="80"
             ViewBoxWidth="80" />

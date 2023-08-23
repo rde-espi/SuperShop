@@ -97,6 +97,33 @@ namespace SuperShop.Prism.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Is Available.
+        /// </summary>
+        internal static string IsAvailable {
+            get {
+                return ResourceManager.GetString("IsAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last Purchase.
+        /// </summary>
+        internal static string LastPurchase {
+            get {
+                return ResourceManager.GetString("LastPurchase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last Sale.
+        /// </summary>
+        internal static string LastSale {
+            get {
+                return ResourceManager.GetString("LastSale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Loading....
         /// </summary>
         internal static string Loading {
@@ -156,6 +183,15 @@ namespace SuperShop.Prism.Resources {
         internal static string SearchProduct {
             get {
                 return ResourceManager.GetString("SearchProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stock.
+        /// </summary>
+        internal static string Stock {
+            get {
+                return ResourceManager.GetString("Stock", resourceCulture);
             }
         }
     }

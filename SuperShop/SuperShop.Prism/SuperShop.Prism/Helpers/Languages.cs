@@ -40,7 +40,7 @@ namespace SuperShop.Prism.Helpers
 
         public static string SearchProduct => Resource.SearchProduct;
 
-       /* public static string Stock => Resource.Stock;
+        public static string Stock => Resource.Stock;
 
         public static string IsAvailable => Resource.IsAvailable;
 
@@ -48,7 +48,7 @@ namespace SuperShop.Prism.Helpers
 
         public static string LastSale => Resource.LastSale;
 
-        public static string Login => Resource.Login;
+        /*public static string Login => Resource.Login;
 
         public static string ModifyUser => Resource.ModifyUser;
 

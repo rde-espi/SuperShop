@@ -130,4 +130,16 @@
   <data name="Page" xml:space="preserve">
     <value>Página</value>
   </data>
+  <data name="IsAvailable" xml:space="preserve">
+    <value>Está disponível!</value>
+  </data>
+  <data name="Stock" xml:space="preserve">
+    <value>Estoques</value>
+  </data>
+  <data name="LastPurchase" xml:space="preserve">
+    <value>Última Compra</value>
+  </data>
+  <data name="LastSale" xml:space="preserve">
+    <value>Última venda!</value>
+  </data>
 </root>
