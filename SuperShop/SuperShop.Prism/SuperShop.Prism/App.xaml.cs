@@ -22,7 +22,7 @@ namespace SuperShop.Prism
             SyncfusionLicenseProvider.RegisterLicense("NDcwOTE4QDMxMzkyZTMyMmUzMGJXQzNHR0g0UVBSUktxdFhLMklZbHM1SWpaMUJzTmNLRWRLb0wzR3dZMFk9");
             InitializeComponent();
 
-            await NavigationService.NavigateAsync("NavigationPage/ProductsPage");
+            await NavigationService.NavigateAsync($"/{nameof(SuperShopMasterDetailPage)}/NavigationPage/{nameof(ProductsPage)}");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -35,6 +35,10 @@ namespace SuperShop.Prism
             containerRegistry.RegisterForNavigation<ProductsPage, ProductsPageViewModel>();
             containerRegistry.RegisterForNavigation<ProductsPage, ProductsPageViewModel>();
             containerRegistry.RegisterForNavigation<ProductDetailPage, ProductDetailPageViewModel>();
+            containerRegistry.RegisterForNavigation<SuperShopMasterDetailPage, SuperShopMasterDetailPageViewModel>();
+            containerRegistry.RegisterForNavigation<ModifyUserPage, ModifyUserPageViewModel>();
+            containerRegistry.RegisterForNavigation<ShowHistoryPage, ShowHistoryPageViewModel>();
+            containerRegistry.RegisterForNavigation<ShowCarPage, ShowCarPageViewModel>();
         }
     }
 }
